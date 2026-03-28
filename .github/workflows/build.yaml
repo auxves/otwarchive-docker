@@ -10,6 +10,10 @@ env:
   REPO: otwcode/otwarchive
   IMAGE: ghcr.io/${{ github.repository }}
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
