@@ -1,2 +1,3 @@
-# otwarchive-docker
-Automated Docker images of the otwarchive software
+# Automated docker images for otwarchive
+
+This repo builds docker images of the [otwarchive](https://github.com/otwcode/otwarchive) software.
