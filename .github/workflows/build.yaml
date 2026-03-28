@@ -2,13 +2,13 @@ name: Build Image
 
 on:
   # schedule:
-  #   - cron: "*/10 * * * *" # every 10 min
+  #   - cron: "0 0 * * *" # every day at 00:00
   workflow_dispatch:
 
 env:
   REPO_FULL: https://github.com/otwcode/otwarchive
   REPO: otwcode/otwarchive
-  IMAGE: ghcr.io/auxves/otwarchive
+  IMAGE: ghcr.io/${{ github.repository }}
 
 jobs:
   check:
@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Restore last tag
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .last_tag
           key: last-tag
@@ -44,13 +44,6 @@ jobs:
             echo "${{ steps.tag.outputs.tag }}" > .last_tag
             echo "should_build=true" >> $GITHUB_OUTPUT
           fi
-
-      - name: Save updated tag
-        if: steps.compare.outputs.should_build == 'true'
-        uses: actions/cache@v5
-        with:
-          path: .last_tag
-          key: last-tag
 
   build:
     runs-on: ubuntu-latest
