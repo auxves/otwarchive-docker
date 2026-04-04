@@ -1,0 +1,51 @@
+services:
+  db:
+    image: mariadb:lts
+    environment:
+      - MYSQL_ROOT_PASSWORD=change_me
+    volumes:
+      - db:/var/lib/mysql:rw
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.3.0
+    volumes:
+      - es:/usr/share/elasticsearch/data:rw
+    environment:
+      - transport.host=localhost
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+
+  otwarchive:
+    image: ghcr.io/auxves/otwarchive-docker:latest
+    environment:
+      RAILS_ENV: development
+      ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY: bEZjYLY9tCYGh6WlcMtEJpIi7GO2plZC
+      ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY: PpLWizzsQHIWnIihtECw8nDHZQd0amzf
+      ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT: 3S99KdpdEWLnCYudBgUfdCFDBWePWCud
+      OTWA_AUTOSEED: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      es:
+        condition: service_started
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:
+  es:
