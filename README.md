@@ -22,4 +22,4 @@ This repo builds docker images of the [otwarchive](https://github.com/otwcode/ot
 
 - `RAILS_ENV`: Rails environment (`development`, `test`, `production`) (default: `development`)
 - `RAILS_LOG_LEVEL`: Logging level (default: `error`)
-- `OTWA_AUTOSEED`: Enable automatic database seeding (set to 1 to wipe and seed the database on container startup)
+- `EXTRA_CONFIG`: Extra configuration text to be added to `config/local.yml`
