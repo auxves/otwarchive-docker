@@ -18,5 +18,12 @@
 
   "dockerfile": {
     "enabled": false
-  }
+  },
+
+  "packageRules": [
+    {
+      "matchPackageNames": ["https://github.com/otwcode/otwarchive"],
+      "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(\\.(?<build>\\d+))?$"
+    }
+  ]
 }
