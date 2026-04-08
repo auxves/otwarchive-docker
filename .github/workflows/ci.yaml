@@ -110,5 +110,6 @@ jobs:
         with:
           url: http://localhost:3000
           follow-redirect: true
+          retry-all: true
           max-attempts: 20
           retry-delay: 10s
