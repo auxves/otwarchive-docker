@@ -5,13 +5,15 @@ on:
     types: [closed]
     branches:
       - main
+    paths:
+      - otwa
 
 permissions:
   contents: write
 
 jobs:
   tag:
-    if: github.event.pull_request.merged && startsWith(github.head_ref, 'renovate/')
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
