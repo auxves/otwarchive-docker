@@ -2,16 +2,10 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "v*"
   pull_request:
   workflow_dispatch:
-  workflow_run:
-    workflows: [Release Tag]
-    types:
-      - completed
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}
