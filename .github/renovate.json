@@ -20,6 +20,10 @@
     "enabled": false
   },
 
+  "github-actions": {
+    "enabled": false
+  },
+
   "packageRules": [
     {
       "matchPackageNames": ["https://github.com/otwcode/otwarchive"],
