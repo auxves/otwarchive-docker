@@ -101,12 +101,14 @@ jobs:
           ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT: 3S99KdpdEWLnCYudBgUfdCFDBWePWCud
         # yaml-language-server-disable
         command: bash -c "sleep 10 && bash /bin/entrypoint.sh"
+        ports:
+          - 3000:3000
 
     steps:
       - name: Health check
         uses: jtalk/url-health-check-action@v5
         with:
-          url: http://otwarchive:3000
+          url: http://localhost:3000
           follow-redirect: true
           max-attempts: 20
           retry-delay: 10s
