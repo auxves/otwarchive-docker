@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:best-practices"],
+
+  "prHourlyLimit": 5,
+
+  "automergeType": "pr",
+  "platformAutomerge": true,
+
+  "git-submodules": {
+    "enabled": true,
+    "automerge": true
+  },
+
+  "docker-compose": {
+    "enabled": false
+  },
+
+  "dockerfile": {
+    "enabled": false
+  }
+}
