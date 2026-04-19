@@ -19,9 +19,17 @@ COPY otwa/Gemfile .
 COPY otwa/Gemfile.lock .
 
 # Use a mirror of devise that preserves prior refs
-RUN sed -i 's#https://github.com/otwcode/devise#https://forge.auxves.dev/mirrors/devise#' Gemfile
+RUN sed -i 's#https://github.com/otwcode/devise#https://forge.auxves.dev/mirrors/devise#' Gemfile Gemfile.lock
 
-RUN --mount=type=cache,target=/usr/local/bundle bundle install -j2
+ARG TARGETARCH
+
+RUN --mount=type=cache,target=/var/cache/bundle,id=bundle-${TARGETARCH},sharing=locked \
+    bundle config set deployment true \
+    && bundle config set path "/var/cache/bundle" \
+    && bundle config set without "development test" \
+    && bundle install -j "$(getconf _NPROCESSORS_ONLN)" \
+    && cp -r /var/cache/bundle /bundle \
+    && bundle config path /bundle
 
 ADD --exclude=otwa/.git otwa /otwa
 COPY entrypoint.sh /bin/entrypoint.sh
