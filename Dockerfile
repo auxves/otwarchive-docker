@@ -26,7 +26,6 @@ ARG TARGETARCH
 RUN --mount=type=cache,target=/var/cache/bundle,id=bundle-${TARGETARCH},sharing=locked \
     bundle config set deployment true \
     && bundle config set path "/var/cache/bundle" \
-    && bundle config set without "development test" \
     && bundle install -j "$(getconf _NPROCESSORS_ONLN)" \
     && cp -r /var/cache/bundle /bundle \
     && bundle config path /bundle
