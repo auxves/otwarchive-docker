@@ -21,7 +21,7 @@ COPY otwa/Gemfile.lock .
 # Use a mirror of devise that preserves prior refs
 RUN sed -i 's#https://github.com/otwcode/devise#https://forge.auxves.dev/mirrors/devise#' Gemfile
 
-RUN bundle install
+RUN --mount=type=cache,target=/usr/local/bundle bundle install
 
 ADD --exclude=otwa/.git otwa /otwa
 COPY entrypoint.sh /bin/entrypoint.sh
