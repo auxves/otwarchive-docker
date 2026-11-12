@@ -1,4 +1,4 @@
 [submodule "otwa"]
 	path = otwa
 	url = https://github.com/otwcode/otwarchive
-	branch = v1.11.0.2
+	branch = v1.13.0.0
